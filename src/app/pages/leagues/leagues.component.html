@@ -1,18 +1,6 @@
 <h2 class="m-0">Listado de ligas</h2>
 <app-loading *ngIf="loading"></app-loading>
 
-<a *ngFor="let league of leagues" [routerLink]="'league/'+league.Identificador">
-<div  class="grid flex align-items-center flex-wrap shadow-2 border-round league-content my-2 p-1">
-  <div class="col-auto">
-    <p-image [src]="league['Logo de la Liga']" alt="Image" width="50"></p-image>
-  </div>
-  <div class="col">
-    <h3 class="m-2 pl-4">
-      {{league["Nombre De La Liga"]}}
-    </h3>
-  </div>
-  <div class="col-auto">
-    <i class="pi pi-chevron-right " style="float: right;"></i>
-  </div>
-</div>
-</a>
+<app-item-list *ngFor="let league of leagues" (click)="goTo(league)" [image]="league['Logo de la Liga']" [name]="league['Nombre De La Liga']"></app-item-list>
+
+
