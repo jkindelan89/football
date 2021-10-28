@@ -1,11 +1,16 @@
-<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"
+                 rejectButtonStyleClass="p-button-text"></p-confirmDialog>
 <div class="grid mr-2" *ngIf="team">
   <div class="col">
-    <app-header-details  [title]="team['Nombre del equipo']" [image]="team['Logo del Equipo']"></app-header-details>
+    <app-header-details [title]="team['Nombre del equipo']" [image]="team['Logo del Equipo']"></app-header-details>
   </div>
   <div class="col-auto">
-    <a   [routerLink]="['/team','edit',team.Liga,team.id]"><button pButton type="button" icon="pi pi-pencil" label="Editar" class="p-button-help mr-2"></button></a>
-    <a  (click)="confirmDeleteTeam()"><button pButton type="button" icon="pi pi-trash" label="Eliminar" class="p-button-danger"></button></a>
+    <a [routerLink]="['/team','edit',team.Liga,team.id]">
+      <button pButton type="button" icon="pi pi-pencil" label="Editar" class="p-button-help mr-2"></button>
+    </a>
+    <a (click)="confirmDeleteTeam()">
+      <button pButton type="button" icon="pi pi-trash" label="Eliminar" class="p-button-danger"></button>
+    </a>
   </div>
 </div>
 <div class="grid mr-2">
@@ -15,6 +20,16 @@
 
   </div>
   <div class="col-auto">
-    <a  *ngIf="team" [routerLink]="['/player','edit',team.id]"><button pButton type="button" icon="pi pi-plus-circle" label="Agregar Jugador" ></button></a>
+    <a *ngIf="team" [routerLink]="['/player','edit',team.id]">
+      <button pButton type="button" icon="pi pi-plus-circle" label="Agregar Jugador"></button>
+    </a>
   </div>
 </div>
+
+<app-loading *ngIf="loading"></app-loading>
+
+<app-item-list *ngFor="let player of players" (click)="goToPlayerDetails(player)"
+               [image]="player.Avatar"
+               [name]="player['Nombre del Jugador']">
+
+</app-item-list>

@@ -9,6 +9,7 @@ import {ImageModule} from 'primeng/image';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {ButtonModule} from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 import {AppRoutingModule} from './app-routing.module';
 
@@ -22,7 +23,8 @@ import { EditComponent } from './pages/teams/edit/edit.component';
 import {FormsModule} from "@angular/forms";
 import { HeaderDetailsComponent } from './components/header-details/header-details.component';
 import {ListComponent as PlayerListComponent} from "./pages/players/list/list.component";
-import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {EditComponent as PlayerEditComponent} from "./pages/players/edit/edit.component";
+import { DetailsComponent } from './pages/players/details/details.component';
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     ItemListComponent,
     EditComponent,
     HeaderDetailsComponent,
-    PlayerListComponent
+    PlayerListComponent,
+    PlayerEditComponent,
+    DetailsComponent
   ],
   imports: [
     BrowserModule,
