@@ -1,0 +1,24 @@
+
+<app-header-details *ngIf="team" [title]="team['Nombre del equipo']" [image]="team['Logo del Equipo']"></app-header-details>
+<h3 class="mt-0 mb-2"> {{player.id?"Editar el jugador:"+player["Nombre del Jugador"]:"Agregar Equipo"}}</h3>
+<div class="p-fluid">
+  <div class="p-field">
+    <label for="firstname1">Nombre del jugador: </label>
+    <input id="firstname1" type="text" pInputText [(ngModel)]="player['Nombre del Jugador']">
+  </div>
+  <div class="p-field mt-2 mb-1">
+    <label for="lastname1">Avatar: </label>
+    <input id="lastname1" type="text" pInputText [(ngModel)]="player.Avatar">
+  </div>
+</div>
+
+<div class="grid mt-4 mr-1">
+  <div class="col">
+
+  </div>
+  <div class="col-auto">
+    <button pButton type="button" label="Cancelar" class="p-button-outlined p-button-danger mr-4" (click)="goBack()"></button>
+    <button pButton type="button" label="Agregar" icon="pi pi-check" (click)="save()"></button>
+
+  </div>
+</div>
