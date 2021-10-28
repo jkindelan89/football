@@ -1,0 +1,22 @@
+<div class="grid mr-2">
+  <div class="col">
+    <app-header-details *ngIf="league" [image]="league['Logo de la Liga']" [title]="league['Nombre De La Liga']"></app-header-details>
+   </div>
+
+</div>
+<div class="grid mr-2">
+  <div class="col">
+
+    <h3 class="mt-0 mb-2">Equipos:</h3>
+
+  </div>
+  <div class="col-auto">
+    <a [routerLink]="['/team','edit',leagueId]"><button pButton type="button" icon="pi pi-plus-circle" label="Agregar Equipo" ></button></a>
+  </div>
+</div>
+<app-loading *ngIf="loading"></app-loading>
+
+<app-item-list *ngFor="let team of teams" (click)="goToTeamDetails(team)" [image]="team['Logo del Equipo']"
+               [name]="team['Nombre del equipo']"></app-item-list>
+
+
