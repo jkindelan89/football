@@ -48,7 +48,6 @@ export class LeagueService {
       ) => {
         this._loading = false;
         this.selectedLeague = league.length > 0 ? league[0] : undefined;
-        console.log(this.selectedLeague);
       }
     )
 

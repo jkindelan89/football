@@ -1,5 +1,5 @@
 
-<app-league-details *ngIf="league" [league]="league"></app-league-details>
+<app-header-details *ngIf="league" [title]="league['Nombre De La Liga']" [image]="league['Logo de la Liga']"></app-header-details>
 <h3 class="mt-0 mb-2"> {{team.id?"Editar el equipo:"+team["Nombre del equipo"]:"Agregar Equipo"}}</h3>
 <div class="p-fluid">
   <div class="p-field">

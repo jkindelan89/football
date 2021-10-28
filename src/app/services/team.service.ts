@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Settings} from "../utils/settings";
 import {Team} from "../interfaces/team";
-import {Observable} from "rxjs";
+import {observable, Observable, of} from "rxjs";
+import {switchMap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -52,14 +53,30 @@ export class TeamService {
 
   }
 
-  getById(id: string) {
+  getById(id: string): Observable<Team> {
+    if (this.selectedTeam?.id == id) return of(this.selectedTeam);
 
-    if (this.selectedTeam?.id == id) return;
     this._loading = true;
-    return this.http.get<Team>(Settings.API_ENDPOINT + this.resource + "/" + id).subscribe((team: Team) => {
-      this._loading = false;
-      this.selectedTeam = team;
-    })
+    return this.http.get<Team>(Settings.API_ENDPOINT + this.resource + "/" + id)
+      .pipe(
+        switchMap((team: Team) => {
+          this.selectedTeam = team;
+          this._loading = false;
+          return of(this.selectedTeam);
+        })
+      );
   }
 
+  delete() {
+    if (this.selectedTeam) {
+      return this.http.delete(Settings.API_ENDPOINT + this.resource + "/" + this.selectedTeam.id).pipe(
+        switchMap((response) => {
+          // this.selectedTeam = undefined;
+          this._loading = false;
+          return of(response);
+        })
+      );
+    }
+    return of(false);
+  }
 }

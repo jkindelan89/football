@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {TeamService} from "../../../services/team.service";
 import {Team} from "../../../interfaces/team";
-import {ActivatedRoute, ParamMap} from "@angular/router";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {LeagueService} from "../../../services/league.service";
 
 @Component({
@@ -13,7 +13,7 @@ export class ListComponent implements OnInit {
 
   leagueId!:string;
 
-  constructor(private teamService: TeamService,private leagueService: LeagueService,private route: ActivatedRoute) {
+  constructor(private teamService: TeamService,private leagueService: LeagueService,private activatedRoute: ActivatedRoute,private router:Router) {
   }
 
   get teams(): Team[] {
@@ -28,11 +28,16 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params: ParamMap) => {
+    this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
       this.leagueId = params.get('id')??""
       this.teamService.getAllByLeague(this.leagueId);
+      this.leagueService.getById(this.leagueId);
     })
 
   }
 
+  goToTeamDetails(team: Team) {
+    this.teamService.selectedTeam = team;
+    this.router.navigate(['/team',team.id])
+  }
 }

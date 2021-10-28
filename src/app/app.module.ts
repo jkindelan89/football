@@ -16,12 +16,13 @@ import {AppComponent} from './app.component';
 import {MenuComponent} from './components/menu/menu.component';
 import {LeaguesComponent} from "./pages/leagues/leagues.component";
 import { LoadingComponent } from './components/loading/loading.component';
-import {ListComponent} from "./pages/teams/list/list.component";
+import {ListComponent as TeamListComponent } from "./pages/teams/list/list.component";
 import { ItemListComponent } from './components/item-list/item-list.component';
 import { EditComponent } from './pages/teams/edit/edit.component';
 import {FormsModule} from "@angular/forms";
-import { LeagueDetailsComponent } from './components/league-details/league-details.component';
-
+import { HeaderDetailsComponent } from './components/header-details/header-details.component';
+import {ListComponent as PlayerListComponent} from "./pages/players/list/list.component";
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 
 @NgModule({
@@ -29,11 +30,12 @@ import { LeagueDetailsComponent } from './components/league-details/league-detai
     AppComponent,
     MenuComponent,
     LeaguesComponent,
-    ListComponent,
+    TeamListComponent,
     LoadingComponent,
     ItemListComponent,
     EditComponent,
-    LeagueDetailsComponent,
+    HeaderDetailsComponent,
+    PlayerListComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +50,7 @@ import { LeagueDetailsComponent } from './components/league-details/league-detai
     AppRoutingModule,
     ButtonModule,
     InputTextModule,
+    ConfirmDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
