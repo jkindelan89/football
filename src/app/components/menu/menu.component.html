@@ -1,5 +1,18 @@
-<p-menubar [model]="items">
-  <ng-template pTemplate="start">
+<div class="grid header pt-2" >
+  <div class="col-auto p-2">
     <img src="assets/logo.png" height="30"  width="30" alt="logo" class="p-mr-2">
-  </ng-template>
-</p-menubar>
+  </div>
+  <div class="col"><a routerLink=""><h2 class="my-0">Liga Las Palmas</h2></a></div>
+  <div class="col-6 pr-4">
+    <div class="p-col-12 p-md-4">
+      <div class="p-inputgroup">
+        <input type="text" pInputText placeholder="Buscar jugador" [(ngModel)]="term" (keyup.enter)="goToSearch()">
+        <button type="button" pButton  icon="pi pi-search" class="p-button-warn" (click)="goToSearch()"></button>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-12 pl-2" *ngIf="!inRoot">
+    <button pButton type="button" icon="pi pi-angle-left" label="Regresar" iconPos="left" class="p-button-link" (click)="goBack()"></button>
+  </div>
+</div>

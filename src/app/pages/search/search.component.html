@@ -1,0 +1,32 @@
+<app-loading *ngIf="loading, else result"></app-loading>
+
+<ng-template #result>
+  <h3>Resultados de la busqueda: {{term}}</h3>
+  <div *ngIf="searchResult.length>0, else noresult">
+    <a *ngFor="let player of searchResult" (click)="goToPlayerDetails(player)">
+      <div class="grid flex align-items-center flex-wrap shadow-2 border-round item-list my-2 p-1">
+        <div class="col-auto">
+          <p-image [src]="player.Avatar" alt="Image" width="50"></p-image>
+        </div>
+        <div class="col">
+          <h3 class="m-2 pl-4">
+            {{player['Nombre del Jugador']}}
+          </h3>
+        </div>
+        <div class="col-auto" *ngIf="player.team">
+          <div class="col-auto">
+            <h4 class="inline">{{player.team["Nombre del equipo"]}}</h4>
+            <p-image [src]="player.team['Logo del Equipo']" alt="Image" width="30"></p-image>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <ng-template #noresult>
+    <h4>No se encontro ningun jugador</h4>
+  </ng-template>
+</ng-template>
+
+
+
+

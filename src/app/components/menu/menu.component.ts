@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MenuItem} from "primeng/api";
+import {Router} from "@angular/router";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-menu',
@@ -8,16 +10,22 @@ import {MenuItem} from "primeng/api";
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  term: string = '';
 
-  items!: MenuItem[];
+  constructor(private router: Router,private location:Location) {
+  }
 
   ngOnInit() {
-    this.items = [
-      {
-        label: 'Liga de Futbol de Las Palmas',
 
-      }
-    ];
+  }
+
+  get inRoot(): boolean {
+    return this.router.url =="/"
+  }
+  goBack(){
+    this.location.back();
+  }
+  goToSearch() {
+    this.router.navigate(["/search", this.term])
   }
 }

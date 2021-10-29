@@ -25,6 +25,7 @@ import { HeaderDetailsComponent } from './components/header-details/header-detai
 import {ListComponent as PlayerListComponent} from "./pages/players/list/list.component";
 import {EditComponent as PlayerEditComponent} from "./pages/players/edit/edit.component";
 import { DetailsComponent } from './pages/players/details/details.component';
+import { SearchComponent } from './pages/search/search.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { DetailsComponent } from './pages/players/details/details.component';
     HeaderDetailsComponent,
     PlayerListComponent,
     PlayerEditComponent,
-    DetailsComponent
+    DetailsComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
