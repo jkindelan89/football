@@ -63,6 +63,7 @@ export class ListComponent implements OnInit {
 
   goToPlayerDetails(player: Player) {
     this.playerService.selectedPlayer = player;
+    this.playerService.selectedPlayer.team = this.team;
     this.route.navigate(['player', player.id]);
   }
 }

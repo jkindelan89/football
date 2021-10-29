@@ -6,6 +6,7 @@ import {EditComponent as TeamEditComponent} from "./pages/teams/edit/edit.compon
 import {ListComponent as PlayerListComponent} from "./pages/players/list/list.component";
 import {EditComponent as PlayerEditComponent} from "./pages/players/edit/edit.component";
 import {DetailsComponent as PlayerDetailsComponent} from "./pages/players/details/details.component";
+import {SearchComponent} from "./pages/search/search.component";
 
 const routes: Routes = [
   { path: '', component: LeaguesComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'player/edit/:team/:id', component: PlayerEditComponent },
   { path: 'player/edit/:team', component: PlayerEditComponent},
   { path: 'player/:id', component: PlayerDetailsComponent },
+  { path: 'search/:term', component: SearchComponent },
 
   { path: '**', redirectTo:'' },
 ];

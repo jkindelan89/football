@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Settings} from "../utils/settings";
-import {Observable, of} from "rxjs";
-import {switchMap} from "rxjs/operators";
+import {forkJoin, Observable, of} from "rxjs";
+import {catchError, map, switchMap, tap} from "rxjs/operators";
 import {Player} from "../interfaces/player";
+import {Team} from "../interfaces/team";
+
 
 @Injectable({
   providedIn: 'root'
@@ -55,12 +57,12 @@ export class PlayerService {
 
   getById(id: string): Observable<Player> {
     if (this.selectedPlayer?.id == id) return of(this.selectedPlayer);
-
     this._loading = true;
-    return this.http.get<Player>(Settings.API_ENDPOINT + this.resource + "/" + id)
+    const params = new HttpParams().set("_expand", 'team');
+    return this.http.get<Player>(Settings.API_ENDPOINT + this.resource + "/" + id,{params})
       .pipe(
         switchMap((player: Player) => {
-                 this.selectedPlayer = player;
+          this.selectedPlayer = player;
           this._loading = false;
           return of(this.selectedPlayer);
         })
@@ -77,5 +79,37 @@ export class PlayerService {
       );
     }
     return of(false);
+  }
+
+  search(term: string): Observable<Player[]> {
+    this._loading = true;
+    const paramsPlayer = new HttpParams().set("_expand", 'team').set('Nombre del Jugador_like', term);
+    const paramsTeam = new HttpParams().set("_embed", 'players').set('Nombre del equipo_like', term);
+    return forkJoin({
+      players: this.http.get<Player[]>(Settings.API_ENDPOINT + this.resource, {params: paramsPlayer}),
+      teams: this.http.get<Team[]>(Settings.API_ENDPOINT + "/teams", {params: paramsTeam})
+    }).pipe(
+      map((response) => {
+        const teams: Team[] = response.teams;
+        const players: Player[] = response.players;
+        let result: Record<string, Player> = {};
+        for (const player of players) {
+          result[player.id] = player;
+        }
+        for (const team of teams) {
+          if (team.players == undefined) continue;
+          const players = team.players!
+          team.players = undefined
+          for (const player of players!) {
+            if (result[player.id] != undefined) continue;
+            player.team = team;
+            result[player.id] = player;
+          }
+        }
+        this._loading = false;
+        return Object.values(result)
+      })
+    )
+
   }
 }

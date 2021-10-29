@@ -13,5 +13,9 @@
       <button pButton type="button" icon="pi pi-trash" label="Eliminar" class="p-button-danger"></button>
     </a>
   </div>
+  <div class="col-12" *ngIf="player.team">
+    <h4>Equipo:</h4>
+    <app-header-details [title]="player.team['Nombre del equipo']" [image]="player.team['Logo del Equipo']"></app-header-details>
+  </div>
 </div>
 </div>
