@@ -1,15 +1,25 @@
-
-<app-header-details *ngIf="team" [title]="team['Nombre del equipo']" [image]="team['Logo del Equipo']"></app-header-details>
-<h3 class="mt-0 mb-2"> {{player.id?"Editar el jugador:"+player["Nombre del Jugador"]:"Agregar Equipo"}}</h3>
+<app-header-details *ngIf="team" [title]="team['Nombre del equipo']"
+                    [image]="team['Logo del Equipo']"></app-header-details>
+<h3 class="mt-0 mb-2"> {{player.id ? "Editar el jugador:" + player["Nombre del Jugador"] : "Agregar Jugador"}}</h3>
 <div class="p-fluid">
-  <div class="p-field">
-    <label for="firstname1">Nombre del jugador: </label>
-    <input id="firstname1" type="text" pInputText [(ngModel)]="player['Nombre del Jugador']">
-  </div>
-  <div class="p-field mt-2 mb-1">
-    <label for="lastname1">Avatar: </label>
-    <input id="lastname1" type="text" pInputText [(ngModel)]="player.Avatar">
-  </div>
+  <form [formGroup]="form" novalidate>
+    <div class="p-field">
+      <label for="name">Nombre del jugador: </label>
+      <input id="name" type="text" pInputText [(ngModel)]="player['Nombre del Jugador']" formControlName="name">
+      <small id="name-help" class="p-error"
+             *ngIf="form.controls.name.invalid && (form.controls.name.dirty || form.controls.name.touched)">
+        El nombre es requerido.
+      </small>
+    </div>
+    <div class="p-field mt-2 mb-1">
+      <label for="image">Avatar: </label>
+      <input id="image" type="text" pInputText [(ngModel)]="player.Avatar" formControlName="image">
+      <small id="image-help" class="p-error"
+             *ngIf="form.controls.image.invalid && (form.controls.image.dirty || form.controls.image.touched)">
+        La imagen es requerido.
+      </small>
+    </div>
+  </form>
 </div>
 
 <div class="grid mt-4 mr-1">
@@ -17,8 +27,9 @@
 
   </div>
   <div class="col-auto">
-    <button pButton type="button" label="Cancelar" class="p-button-outlined p-button-danger mr-4" (click)="goBack()"></button>
-    <button pButton type="button" label="Agregar" icon="pi pi-check" (click)="save()"></button>
+    <button pButton type="button" label="Cancelar" class="p-button-outlined p-button-danger mr-4"
+            (click)="goBack()"></button>
+    <button pButton type="button" label="Agregar" icon="pi pi-check" (click)="save()" [disabled]="form.invalid"></button>
 
   </div>
 </div>

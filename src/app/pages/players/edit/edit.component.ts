@@ -6,6 +6,7 @@ import {LeagueService} from "../../../services/league.service";
 import {Location} from "@angular/common";
 import {PlayerService} from "../../../services/player.service";
 import {Player} from "../../../interfaces/player";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-edit',
@@ -19,8 +20,12 @@ export class EditComponent implements OnInit {
     Avatar: "",
     teamId: ""
   };
+  public form!: FormGroup;
 
-  constructor(private playerService: PlayerService, private teamService: TeamService, private location: Location, private route: ActivatedRoute) {
+  constructor(private playerService: PlayerService,
+              private teamService: TeamService,
+              private location: Location,
+              private route: ActivatedRoute,) {
   }
 
 
@@ -47,10 +52,15 @@ export class EditComponent implements OnInit {
         });
       }
       this.teamService.getById(teamId);
-    })
+    });
+    this.form = new FormGroup({
+      name: new FormControl(this.player["Nombre del Jugador"], [Validators.required,]),
+      image: new FormControl(this.player.Avatar, Validators.required),
+    });
   }
 
   save() {
+    if (this.form.invalid) return;
     this.player.teamId = this.team!.id;
     this.playerService.save(this.player).subscribe((value: any) => {
       this.goBack();
