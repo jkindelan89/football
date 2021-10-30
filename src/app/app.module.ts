@@ -20,7 +20,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 import {ListComponent as TeamListComponent } from "./pages/teams/list/list.component";
 import { ItemListComponent } from './components/item-list/item-list.component';
 import { EditComponent } from './pages/teams/edit/edit.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { HeaderDetailsComponent } from './components/header-details/header-details.component';
 import {ListComponent as PlayerListComponent} from "./pages/players/list/list.component";
 import {EditComponent as PlayerEditComponent} from "./pages/players/edit/edit.component";
@@ -56,7 +56,8 @@ import { SearchComponent } from './pages/search/search.component';
     AppRoutingModule,
     ButtonModule,
     InputTextModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

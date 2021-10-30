@@ -5,6 +5,7 @@ import {TeamService} from "../../../services/team.service";
 import {LeagueService} from "../../../services/league.service";
 import {League} from "../../../interfaces/league";
 import {Location} from "@angular/common";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-edit',
@@ -19,8 +20,12 @@ export class EditComponent implements OnInit {
     "Logo del Equipo": "",
     Liga: ""
   }
+  public form!: FormGroup;
 
-  constructor(private teamService: TeamService, private leagueService: LeagueService, private location: Location, private route: ActivatedRoute) {
+  constructor(private teamService: TeamService,
+              private leagueService: LeagueService,
+              private location: Location,
+              private route: ActivatedRoute) {
   }
 
   get loadingTeam(): boolean {
@@ -44,18 +49,24 @@ export class EditComponent implements OnInit {
       let leagueId = params.get('league') ?? ""
       let teamId = params.get('team') ?? ""
       if (teamId) {
-        this.teamService.getById(teamId).subscribe((team:Team)=>{
+        this.teamService.getById(teamId).subscribe((team: Team) => {
           this.team = team;
         });
       }
       this.leagueService.getById(leagueId);
-    })
+    });
+    this.form = new FormGroup({
+      name: new FormControl(this.team["Nombre del equipo"], [Validators.required,]),
+      image: new FormControl(this.team["Logo del Equipo"], Validators.required),
+    });
+
   }
 
   save() {
+   if (this.form.invalid) return;
     this.team.Liga = this.league!.Identificador;
     this.teamService.save(this.team).subscribe((value: any) => {
-       this.goBack();
+      this.goBack();
     });
   }
 }
