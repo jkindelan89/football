@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SearchComponent } from './search.component';
+import {LeagueService} from "../../services/league.service";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {RouterTestingModule} from "@angular/router/testing";
+import {PlayerService} from "../../services/player.service";
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
@@ -8,7 +12,9 @@ describe('SearchComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SearchComponent ]
+      declarations: [ SearchComponent ],
+      providers:[PlayerService ],
+      imports:[HttpClientTestingModule,RouterTestingModule]
     })
     .compileComponents();
   });

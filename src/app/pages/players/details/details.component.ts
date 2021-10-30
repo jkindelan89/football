@@ -17,7 +17,6 @@ import {ConfirmationService} from "primeng/api";
 export class DetailsComponent implements OnInit {
 
   constructor(private playerService: PlayerService,
-              private teamService: TeamService,
               private location: Location,
               private activatedRoute: ActivatedRoute,
               private confirmationService: ConfirmationService,

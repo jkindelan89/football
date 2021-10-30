@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditComponent } from './edit.component';
+import {LeagueService} from "../../../services/league.service";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {RouterTestingModule} from "@angular/router/testing";
+import {TeamService} from "../../../services/team.service";
 
 describe('EditComponent', () => {
   let component: EditComponent;
@@ -8,7 +12,9 @@ describe('EditComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditComponent ]
+      declarations: [ EditComponent ],
+      providers:[LeagueService,TeamService ],
+      imports:[HttpClientTestingModule,RouterTestingModule]
     })
     .compileComponents();
   });
