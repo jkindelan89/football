@@ -35,8 +35,8 @@ export class PlayerService {
   }
 
   getAllByTeam(teamId: string): void {
-    if (!teamId) return;
     this.reset();
+    if (!teamId) return;
     const params = new HttpParams().set("teamId", teamId);
     this._loading = true;
     this.http.get<Player[]>(Settings.API_ENDPOINT + this.resource, {params}).subscribe((players: Player[]) => {
@@ -59,7 +59,7 @@ export class PlayerService {
     if (this.selectedPlayer?.id == id) return of(this.selectedPlayer);
     this._loading = true;
     const params = new HttpParams().set("_expand", 'team');
-    return this.http.get<Player>(Settings.API_ENDPOINT + this.resource + "/" + id,{params})
+    return this.http.get<Player>(Settings.API_ENDPOINT + this.resource + "/" + id, {params})
       .pipe(
         switchMap((player: Player) => {
           this.selectedPlayer = player;
